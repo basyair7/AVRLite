@@ -3,6 +3,56 @@
 ## Overview
 The AVRLite Project is a lightweight library designed for AVR microcontrollers, particularly the ATmega328P. This project offers core functionalities akin to the [Arduino framework](https://www.arduino.cc), such as GPIO management, timing, and serial communication, while maintaining simplicity and minimal overhead.
 
+## Installation
+
+### Installing `avr-g++` on WSL
+
+1. **Open your WSL terminal**: If you're using Ubuntu, you can open it by searching for "Ubuntu" in the Windows search bar.
+2. **Update your package list**: Run the following command to update your package list:
+```sh
+sudo apt update
+```
+3. **Install `avr-g++`**: Install the AVR toolchain by running:
+```sh
+sudo apt install gcc-avr avr-libc binutils-avr avrdude
+```
+4. **Verify the installation**: Check if `avr-g++` is installed correctly by running:
+```sh
+avr-g++ --version
+```
+
+### Installing `cmake` on WSL
+
+1. **Open your WSL Terminal**
+2. **Update your package list**: Run the following command to update your package list:
+```sh
+sudo apt update
+```
+3. **Install `cmake`**: Install CMake by running.
+```sh
+sudo apt install cmake
+```
+4. **Verify the installation**: Check if `cmake` is installed correctly by running:
+```sh
+cmake --version
+```
+
+## Running CMake on WSL
+
+1. **Create a build directory**: Navigate to your project directory and create a build directory:
+```sh
+mkdir build
+cd build
+```
+2. **Run CMake**: Run CMake to configure your project:
+```sh
+cmake ..
+```
+3. **BUild your project**: Compile your project using the make command:
+```sh
+make
+```
+
 ## Files
 - `AVRLite.h`: Contains essential functions for GPIO control, timing, and serial communication.
 - `main.cpp`: Demonstrates the application of `AVRLite.h`.
