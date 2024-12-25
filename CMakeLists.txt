@@ -22,8 +22,8 @@ set(EXECUTABLE_NAME
 
 # Source files
 add_executable(${EXECUTABLE_NAME} 
-  # include/AVRLite.c
   src/${EXECUTABLE_NAME}.cpp
+  include/AVRLite.cpp
 )
 
 # Include directories
