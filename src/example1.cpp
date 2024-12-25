@@ -1,9 +1,17 @@
 /**  
  * @file example1.cpp
  * @brief Basic MultiThreading with uptimeMs
- * @author basyair7
+ * This example demonstrates basic multitasking by toggling the states of three LEDs at different intervals
+ * and controlling the brightness of an LED using PWM.
+ * 
+ * @details
+ * - LED_1 (D13) toggles every 5 seconds.
+ * - LED_2 (D12) toggles every 1 second.
+ * - LED_3 (D11) fades in and out using PWM with a fade interval of 30 ms.
+ * 
  * @date 2024
-*/
+ * @autor basyair7
+ */
 
 #include "AVRLite.h"  // Include the necessary header for AVR-based microcontroller operations
 
@@ -17,7 +25,7 @@ int brightness = 0;  // The current brightness of the LED, range from 0 to 255
 int fadeAmount = 5;  // Amount by which brightness changes per step
 
 /**
- * Function to control PWM on LED_3, simulating a fading effect.
+ * @brief Function to control PWM on LED_3, simulating a fading effect.
  * The brightness is incremented or decremented, creating a fade-in and fade-out effect.
  */
 void pwmExample() {

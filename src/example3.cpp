@@ -1,11 +1,18 @@
 /**  
  * @file example3.cpp
  * @brief Basic Flip-Flop
- * @author basyair7
+ * This example demonstrates a simple flip-flop (toggle) operation.
+ * An LED connected to pin D13 is turned on and off with a delay of 1 second.
+ * 
+ * @details
+ * - The LED is toggled by setting the pin HIGH to turn it on and LOW to turn it off.
+ * - The `sleep` function is used to introduce a delay of 1000 milliseconds (1 second) between toggles.
+ * 
  * @date 2024
-*/
+ * @autor basyair7
+ */
 
-#include "AVRLite.h"
+#include "AVRLite.h"  // Include the necessary header for AVR-based microcontroller operations
 
 // Main program entry point
 int main() {
