@@ -48,7 +48,7 @@ cd build
 ```sh
 cmake ..
 ```
-3. **BUild your project**: Compile your project using the make command:
+3. **Build your project**: Compile your project using the make command:
 ```sh
 make
 ```
