@@ -14,15 +14,16 @@ set(CMAKE_CXX_FLAGS "-mmcu=${MCU} -DF_CPU=${F_CPU} -Os")
 
 # Define the executable name as a variable
 set(EXECUTABLE_NAME 
+  main
   # example1
   # example2
-  example3
+  # example3
 )
 
 # Source files
 add_executable(${EXECUTABLE_NAME} 
-    # include/AVRLite.c
-    src/${EXECUTABLE_NAME}.cpp
+  # include/AVRLite.c
+  src/${EXECUTABLE_NAME}.cpp
 )
 
 # Include directories
@@ -41,5 +42,5 @@ include_directories(include)
 
 # Generate HEX file directly after building the executable
 add_custom_command(TARGET ${EXECUTABLE_NAME} POST_BUILD
-    COMMAND avr-objcopy -O ihex ${EXECUTABLE_NAME} ../firmware/${EXECUTABLE_NAME}.hex
+  COMMAND avr-objcopy -O ihex ${EXECUTABLE_NAME} ../firmware/${EXECUTABLE_NAME}_out.hex
 )
