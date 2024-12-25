@@ -25,7 +25,7 @@ const uint16_t LED_PINS[3] = {D3, D5, D6};
 int main() {
     // Setup: Initialize each LED pin as OUTPUT
     for (const auto pin : LED_PINS) {
-        GPIOInit(pin, OUTPUT);
+        GPIOControl(pin, OUTPUT);
     }
 
     // Constant interval for delay in microseconds
@@ -37,13 +37,13 @@ int main() {
         for (const auto pin : LED_PINS) {
             // Gradually increase the brightness
             for (int i = 0; i <= 255; i++) {
-                GPIOWrite(pin, ANALOGWRITE, i); // Set PWM duty cycle
+                GPIOControl(pin, ANALOGWRITE, i); // Set PWM duty cycle
                 sleepMicroseconds(interval); // Wait for the defined interval
             }
 
             // Gradually decrease the brightness
             for (int i = 255; i >= 0; i--) {
-                GPIOWrite(pin, ANALOGWRITE, i); // Set PWM duty cycle
+                GPIOControl(pin, ANALOGWRITE, i); // Set PWM duty cycle
                 sleepMicroseconds(interval); // Wait for the defined interval
             }
         }

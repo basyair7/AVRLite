@@ -237,7 +237,7 @@ void GPIOWrite(uint8_t pin, uint8_t mode, uint8_t value = 0) {
 int GPIOControl(uint8_t pin, uint8_t mode, uint8_t value = 0) {
     if (mode == OUTPUT || mode == INPUT)
         GPIOInit(pin, mode);
-    if (mode == HIGH || mode == LOW)
+    if (mode == HIGH || mode == LOW || mode == ANALOGWRITE)
         GPIOWrite(pin, mode, value);
     if (mode == DIGITALREAD || mode == ANALOGREAD)
         return GPIORead(pin, mode);
