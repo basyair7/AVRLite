@@ -33,11 +33,12 @@ The AVRLite Project is a lightweight library designed for AVR microcontrollers, 
    - **Reference**: 
       - [pinMode function](https://docs.arduino.cc/language-reference/en/functions/digital-io/pinMode/)
 
-3. **`GPIOWrite(uint8_t pin, uint8_t mode)`**:
+3. **`GPIOWrite(uint8_t pin, uint8_t mode, uint8_t value = 0)`**:
    - Writes a value to a digital pin.
    - **Parameters**:
      - `pin`: Pin number to write to.
-     - `mode`: Value to set (HIGH or LOW).
+     - `mode`: Value to set (HIGH, LOW, ANALOGWRITE).
+     - `value`: The duty cycle: between 0 (always off) and 255 (always on)
    - **Reference**: 
       - [digitalWrite function](https://docs.arduino.cc/language-reference/en/functions/digital-io/digitalwrite/)
       - [analogWrite function](https://docs.arduino.cc/language-reference/en/functions/analog-io/analogWrite/)
@@ -90,12 +91,13 @@ The `main.cpp` file demonstrates the use of the `AVRLite.h` library. It showcase
 ### Implementation
 1. **Initialization**:
    - Sets up the millis timer and initializes Serial communication.
-   - Configures pins D13 and D12 as OUTPUT using `GPIOInit`.
+   - Configures pins D13, D12 and D11 as OUTPUT using `GPIOInit`.
 
 2. **Main Loop**:
    - **Reading LED States**:
      - Every 500 milliseconds, reads the states of LEDs on D13 and D12, printing them to the Serial Monitor.
    - **Toggling LEDs**:
+     - LED on D11 fade flip-flop (set ANALOGWRITE pwm 0 - 255)
      - LED on D13 toggles every 5000 milliseconds.
      - LED on D12 toggles every 1000 milliseconds.
    - **State Update**:
@@ -134,7 +136,7 @@ void pwmExample() {
         }
 
         // Apply the calculated brightness to LED_3 using PWM
-        GPIOWrite(LED_3, brightness);  // This will control the PWM for LED_3
+        GPIOWrite(LED_3, ANALOGWRITE, brightness);  // This will control the PWM for LED_3
     }
 }
 

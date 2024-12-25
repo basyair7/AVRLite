@@ -13,11 +13,15 @@ set(CMAKE_CXX_COMPILER avr-g++)
 set(CMAKE_CXX_FLAGS "-mmcu=${MCU} -DF_CPU=${F_CPU} -Os")
 
 # Define the executable name as a variable
-set(EXECUTABLE_NAME example1)
+set(EXECUTABLE_NAME 
+  # example1
+  # example2
+  example3
+)
 
 # Source files
 add_executable(${EXECUTABLE_NAME} 
-    # includes/AVRLite.cpp
+    # include/AVRLite.c
     src/${EXECUTABLE_NAME}.cpp
 )
 

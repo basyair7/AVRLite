@@ -1,3 +1,10 @@
+/**  
+ * @file example1.cpp
+ * @brief Basic MultiThreading with uptimeMs
+ * @author basyair7
+ * @date 2024
+*/
+
 #include "AVRLite.h"  // Include the necessary header for AVR-based microcontroller operations
 
 #define LED_1 D13  // Define LED_1 on pin D13
@@ -27,7 +34,7 @@ void pwmExample() {
         }
 
         // Apply the calculated brightness to LED_3 using PWM
-        GPIOWrite(LED_3, brightness);  // This will control the PWM for LED_3
+        GPIOWrite(LED_3, ANALOGWRITE, brightness);  // This will control the PWM for LED_3
     }
 }
 
