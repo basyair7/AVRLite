@@ -10,7 +10,7 @@ The AVRLite Project is a lightweight library designed for AVR microcontrollers, 
 ## References
 - The design and features of the AVRLite library were inspired by the [Arduino framework](https://www.arduino.cc), which provides a versatile development environment for microcontrollers.
 - Timing functionalities such as `uptimeUs()` and `uptimeMs()` are based on the Timer overflow mechanisms similar to the Arduino functions [micros()](https://docs.arduino.cc/language-reference/en/functions/time/micros/) and [millis()](https://docs.arduino.cc/language-reference/en/functions/time/millis/).
-- Delay functionalities such as `sleep()` and `sleepMicroseconds()` are based on the Arduino functions [delay()](https://docs.arduino.cc/language-reference/en/functions/time/delay/) and [delayMicroseconds()](https://docs.arduino.cc/language-reference/en/functions/time/delayMicroseconds/.
+- Delay functionalities such as `sleep()` and `sleepMicroseconds()` are based on the Arduino functions [delay()](https://docs.arduino.cc/language-reference/en/functions/time/delay/) and [delayMicroseconds()](https://docs.arduino.cc/language-reference/en/functions/time/delayMicroseconds/).
 - Detailed technical explanations for timer overflow mechanisms and other low-level operations can be found in the [AVR Libc Documentation](https://www.nongnu.org/avr-libc/user-manual/).
 - Serial communication concepts refer to the [Serial Communication](https://www.arduino.cc/reference/en/language/functions/communication/serial/) documentation on the Arduino website.
 
