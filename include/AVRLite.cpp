@@ -66,7 +66,7 @@ unsigned long uptimeUs() {
     return ((m << 8) + t * (64 / (F_CPU / 1000000L)));
 }
 
-// sleep for a specified number of milliseconds
+// Sleep for a specified number of milliseconds
 void sleep(unsigned long ms) {
     unsigned long start = uptimeUs();
 
@@ -225,7 +225,7 @@ void Serial_println(const char* str) {
     Serial_print("\n");
 }
 
-// FOrmatted print to Serial with dynamic buffer
+// Formatted print to Serial with dynamic buffer
 void Serial_printf(const char *format, ...) {
     va_list args;
     va_start(args, format);
