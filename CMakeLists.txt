@@ -15,9 +15,6 @@ set(CMAKE_CXX_FLAGS "-mmcu=${MCU} -DF_CPU=${F_CPU} -Os")
 # Define the executable name as a variable
 set(EXECUTABLE_NAME 
   main
-  # example1
-  # example2
-  # example3
 )
 
 # Source files
