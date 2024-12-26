@@ -1,5 +1,5 @@
 /**  
- * @file example1.cpp
+ * @file example5.cpp
  * @brief Basic MultiThreading with uptimeMs
  * This example demonstrates basic multitasking by toggling the states of three LEDs at different intervals
  * and controlling the brightness of an LED using PWM.
