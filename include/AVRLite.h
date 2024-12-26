@@ -21,29 +21,35 @@
 #define ANALOGWRITE  0x6
 #define DIGITALREAD  0x7
 
-// Definitions for digital pins D0 to D13
-#define D0 0
-#define D1 1
-#define D2 2
-#define D3 3
-#define D4 4
-#define D5 5
-#define D6 6
-#define D7 7
-#define D8 8
-#define D9 9
-#define D10 10
-#define D11 11
-#define D12 12
-#define D13 13
-
 // Definitions for analog pins A0 to A5
-#define A0 14
-#define A1 15
-#define A2 16
-#define A3 17
-#define A4 18
-#define A5 19
+#define A0 0xE
+#define A1 0xF
+#define A2 0x10
+#define A3 0x11
+#define A4 0x12
+#define A5 0x13
+
+// Definitions for digital pins D0 to D19
+#define D0  0x0
+#define D1  0x1
+#define D2  0x2
+#define D3  0x3
+#define D4  0x4
+#define D5  0x5
+#define D6  0x6
+#define D7  0x7
+#define D8  0x8
+#define D9  0x9
+#define D10 0xA
+#define D11 0xB
+#define D12 0xC
+#define D13 0xD
+#define D14 A0
+#define D15 A1
+#define D16 A2
+#define D17 A3
+#define D18 A4
+#define D19 A5
 
 #ifdef __cplusplus
 extern "C" {
