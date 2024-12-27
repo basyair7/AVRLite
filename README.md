@@ -3,66 +3,9 @@
 ## Overview
 The AVRLite Project is a lightweight library designed for AVR microcontrollers, particularly the ATmega328P. This project offers core functionalities akin to the [Arduino framework](https://www.arduino.cc), such as GPIO management, timing, and serial communication, while maintaining simplicity and minimal overhead.
 
-## Installation
-
-### Installing `avr-g++` on WSL
-
-1. **Open your WSL terminal**: If you're using Ubuntu, you can open it by searching for "Ubuntu" in the Windows search bar.
-2. **Update your package list**: Run the following command to update your package list:
-```sh
-sudo apt update
-```
-3. **Install `avr-g++`**: Install the AVR toolchain by running:
-```sh
-sudo apt install gcc-avr avr-libc binutils-avr avrdude
-```
-4. **Verify the installation**: Check if `avr-g++` is installed correctly by running:
-```sh
-avr-g++ --version
-```
-
-### Installing `cmake` on WSL
-
-1. **Open your WSL Terminal**
-2. **Update your package list**: Run the following command to update your package list:
-```sh
-sudo apt update
-```
-3. **Install `cmake`**: Install CMake by running.
-```sh
-sudo apt install cmake
-```
-4. **Verify the installation**: Check if `cmake` is installed correctly by running:
-```sh
-cmake --version
-```
-
-## Running CMake on WSL
-
-1. **Create a build directory**: Navigate to your project directory and create a build directory:
-```sh
-mkdir build
-cd build
-```
-2. **Run CMake**: Run CMake to configure your project:
-```sh
-cmake ..
-```
-3. **Build your project**: Compile your project using the make command:
-```sh
-make
-```
-
 ## Files
 - `AVRLite.h`: Contains essential functions for GPIO control, timing, and serial communication.
 - `main.cpp`: Demonstrates the application of `AVRLite.h`.
-
-## References
-- The design and features of the AVRLite library were inspired by the [Arduino framework](https://www.arduino.cc), which provides a versatile development environment for microcontrollers.
-- Timing functionalities such as `uptimeUs()` and `uptimeMs()` are based on the Timer overflow mechanisms similar to the Arduino functions [micros()](https://docs.arduino.cc/language-reference/en/functions/time/micros/) and [millis()](https://docs.arduino.cc/language-reference/en/functions/time/millis/).
-- Delay functionalities such as `sleep()` and `sleepMicroseconds()` are based on the Arduino functions [delay()](https://docs.arduino.cc/language-reference/en/functions/time/delay/) and [delayMicroseconds()](https://docs.arduino.cc/language-reference/en/functions/time/delayMicroseconds/).
-- Detailed technical explanations for timer overflow mechanisms and other low-level operations can be found in the [AVR Libc Documentation](https://www.nongnu.org/avr-libc/user-manual/).
-- Serial communication concepts refer to the [Serial Communication](https://www.arduino.cc/reference/en/language/functions/communication/serial/) documentation on the Arduino website.
 
 ## AVRLite.h
 
@@ -122,12 +65,12 @@ make
    - Initiates Serial communication at the given baud rate.
 
 10. **`Serial_print(const char* str)`**: 
-   - Sends a string over the Serial port.
-   - Converts newlines `\n` to carriage return + newline `\r\n` for compatibility.
+    - Sends a string over the Serial port.
+    - Converts newlines `\n` to carriage return + newline `\r\n` for compatibility.
 
 11. **`Serial_println(const char* str = "")`**: 
-   - Sends a string over the Serial port with a newline character.
-   - Default parameter allows calling `Serial_println()` without arguments to print just a newline.
+    - Sends a string over the Serial port with a newline character.
+    - Default parameter allows calling `Serial_println()` without arguments to print just a newline.
 
 12. **`Serial_printf(const char *format, ...)`**:
     - Sends a formatted string over the Serial port.
@@ -251,3 +194,61 @@ int main() {
 }
 
 ```
+
+
+## Installation
+
+### Installing `avr-g++` on WSL
+
+1. **Open your WSL terminal**: If you're using Ubuntu, you can open it by searching for "Ubuntu" in the Windows search bar.
+2. **Update your package list**: Run the following command to update your package list:
+```sh
+sudo apt update
+```
+3. **Install `avr-g++`**: Install the AVR toolchain by running:
+```sh
+sudo apt install gcc-avr avr-libc binutils-avr avrdude
+```
+4. **Verify the installation**: Check if `avr-g++` is installed correctly by running:
+```sh
+avr-g++ --version
+```
+
+### Installing `cmake` on WSL
+
+1. **Open your WSL Terminal**
+2. **Update your package list**: Run the following command to update your package list:
+```sh
+sudo apt update
+```
+3. **Install `cmake`**: Install CMake by running.
+```sh
+sudo apt install cmake
+```
+4. **Verify the installation**: Check if `cmake` is installed correctly by running:
+```sh
+cmake --version
+```
+
+## Running CMake on WSL
+
+1. **Create a build directory**: Navigate to your project directory and create a build directory:
+```sh
+mkdir build
+cd build
+```
+2. **Run CMake**: Run CMake to configure your project:
+```sh
+cmake ..
+```
+3. **Build your project**: Compile your project using the make command:
+```sh
+make
+```
+
+## References
+- The design and features of the AVRLite library were inspired by the [Arduino framework](https://www.arduino.cc), which provides a versatile development environment for microcontrollers.
+- Timing functionalities such as `uptimeUs()` and `uptimeMs()` are based on the Timer overflow mechanisms similar to the Arduino functions [micros()](https://docs.arduino.cc/language-reference/en/functions/time/micros/) and [millis()](https://docs.arduino.cc/language-reference/en/functions/time/millis/).
+- Delay functionalities such as `sleep()` and `sleepMicroseconds()` are based on the Arduino functions [delay()](https://docs.arduino.cc/language-reference/en/functions/time/delay/) and [delayMicroseconds()](https://docs.arduino.cc/language-reference/en/functions/time/delayMicroseconds/).
+- Detailed technical explanations for timer overflow mechanisms and other low-level operations can be found in the [AVR Libc Documentation](https://www.nongnu.org/avr-libc/user-manual/).
+- Serial communication concepts refer to the [Serial Communication](https://www.arduino.cc/reference/en/language/functions/communication/serial/) documentation on the Arduino website.
