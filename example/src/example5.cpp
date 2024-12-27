@@ -21,8 +21,8 @@ int main() {
 
     // Array to store different time intervals for fading effects
     const unsigned long interval[6] = {10000, 5000, 1000, 500, 100, 50};  // Different intervals for each mode
+    const uint8_t fadeAmount = 5; // Amount to increment or decrement the brightness
     bool direction = true;  // `true` for forward, `false` for backward
-    int16_t fadeAmount = 5; // Amount to increment or decrement the brightness
     int16_t brightness = 0; // Current brightness level
     uint8_t counter = 0;    // Counter to switch between modes
     uint8_t mode = 0;       // Initialize mode counter
