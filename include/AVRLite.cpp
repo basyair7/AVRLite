@@ -13,7 +13,7 @@ ISR(TIMER1_COMPA_vect) {
 }
 
 // Initialize Timers function
-void __attribute__((constructor)) initTimers() {
+void __attribute__((constructor)) __initTimers__() {
     // Initialize Timer0 for uptimeUs
     TCCR0A = 0; // Set entire TCCR0A register to 0
     TCCR0B = 0; // Same for TCCR0B
@@ -88,16 +88,92 @@ void sleepMicroseconds(unsigned int us) {
 }
 
 // Configure pin mode (INPUT or OUTPUT)
-void GPIOInit(uint8_t pin, uint8_t mode) {
+int GPIOInit(uint8_t pin, uint8_t mode) {
     if (mode == OUTPUT) {
         if (pin >= 0 && pin <= 7)        DDRD |= (1 << pin);
         else if (pin >= 8 && pin <= 13)  DDRB |= (1 << (pin - 8));
         else if (pin >= 14 && pin <= 19) DDRC |= (1 << (pin - 14));
-    } else {
+        
+        return 1;
+    } 
+    else {
         if (pin >= 0 && pin <= 7)        DDRD &= ~(1 << pin);
         else if (pin >= 8 && pin <= 13)  DDRB &= ~(1 << (pin - 8));
         else if (pin >= 14 && pin <= 19) DDRC &= ~(1 << (pin - 14));
+
+        return 1;
     }
+
+    return 0;
+}
+
+// Write to a digital pin
+void __GPIODigitalWrite__(uint8_t pin, uint8_t mode) {
+    if (mode == HIGH) {
+        if (pin >= 0 && pin <= 7)        PORTD |= (1 << pin);
+        else if (pin >= 8 && pin <= 13)  PORTB |= (1 << (pin - 8));
+        else if (pin >= 14 && pin <= 19) PORTC |= (1 << (pin - 14));
+    } 
+    else if (mode == LOW) {
+        if (pin >= 0 && pin <= 7)        PORTD &= ~(1 << pin);
+        else if (pin >= 8 && pin <= 13)  PORTB &= ~(1 << (pin - 8));
+        else if (pin >= 14 && pin <= 19) PORTC &= ~(1 << (pin - 14));
+    }
+}
+
+// Handle analogWrite (PWM output)
+void __GPIOAnalogWrite__(uint8_t pin, uint8_t value) {
+    if (pin == D3 || pin == D11) {
+        if (pin == D3) {
+            TCCR2A |= (1 << COM2B1) | (1 << WGM20) | (1 << WGM21); // Fast PWM, clear on compare match
+            TCCR2B |= (1 << CS21); // Prescaler 8
+            OCR2B = value; // Set duty cycle
+        } 
+        else if (pin == D11) {
+            TCCR2A |= (1 << COM2A1) | (1 << WGM20) | (1 << WGM21); // Fast PWM, clear on compare match
+            TCCR2B |= (1 << CS21); // Prescaler 8
+            OCR2A = value; // Set duty cycle
+        }
+    } 
+    else if (pin == D5 || pin == D6) {
+        if (pin == D5) {
+            TCCR0A |= (1 << COM0B1) | (1 << WGM00) | (1 << WGM01); // Fast PWM, clear on compare match
+            TCCR0B |= (1 << CS01); // Prescaler 8
+            OCR0B = value; // Set duty cycle
+        } 
+        else if (pin == D6) {
+            TCCR0A |= (1 << COM0A1) | (1 << WGM00) | (1 << WGM01); // Fast PWM, clear on compare match
+            TCCR0B |= (1 << CS01); // Prescaler 8
+            OCR0A = value; // Set duty cycle
+        }
+    }
+    else if (pin == D9 || pin == D10) {
+        if (pin == D9) {
+            TCCR1A |= (1 << COM1A1) | (1 << WGM10); // Fast PWM, clear on compare match
+            TCCR1B |= (1 << WGM12) | (1 << CS11); // Prescaler 8
+            OCR1A = value; // Set duty cycle
+        } 
+        else if (pin == D10) {
+            TCCR1A |= (1 << COM1B1) | (1 << WGM10); // Fast PWM, clear on compare match
+            TCCR1B |= (1 << WGM12) | (1 << CS11); // Prescaler 8
+            OCR1B = value; // Set duty cycle
+        }
+    }
+
+    if (value <= 0) __GPIODigitalWrite__(pin, LOW);
+}
+
+uint8_t GPIOWrite(uint8_t pin, uint8_t mode, uint8_t value) {
+    if (mode == ANALOGWRITE) {
+        __GPIOAnalogWrite__(pin, value);
+        return value;
+    }
+    if (mode == HIGH || mode == LOW) {
+        __GPIODigitalWrite__(pin, mode);
+        return mode;
+    }
+
+    return 0;
 }
 
 // Overloaded versions of GPIOControl for DIGITALREAD and ANALOGREAD without mode parameter
@@ -112,7 +188,6 @@ int GPIORead(uint8_t pin, uint8_t state) {
 
         return LOW;
     }
-    
     if (state == ANALOGREAD) {
         if (pin >= A0 && pin <= A5) {
             uint8_t adc_pin = pin - A0;
@@ -126,67 +201,14 @@ int GPIORead(uint8_t pin, uint8_t state) {
     return LOW;
 }
 
-// Write to a digital pin
-void GPIOWrite(uint8_t pin, uint8_t mode, uint8_t value) {
-    if (mode == HIGH) {
-        if (pin >= 0 && pin <= 7)        PORTD |= (1 << pin);
-        else if (pin >= 8 && pin <= 13)  PORTB |= (1 << (pin - 8));
-        else if (pin >= 14 && pin <= 19) PORTC |= (1 << (pin - 14));
-    } 
-    else if (mode == LOW) {
-        if (pin >= 0 && pin <= 7)        PORTD &= ~(1 << pin);
-        else if (pin >= 8 && pin <= 13)  PORTB &= ~(1 << (pin - 8));
-        else if (pin >= 14 && pin <= 19) PORTC &= ~(1 << (pin - 14));
-    } 
-    else if (mode == ANALOGWRITE) {
-        // Handle analogWrite (PWM output)
-        if (pin == D3 || pin == D11) {
-            if (pin == D3) {
-                TCCR2A |= (1 << COM2B1) | (1 << WGM20) | (1 << WGM21); // Fast PWM, clear on compare match
-                TCCR2B |= (1 << CS21); // Prescaler 8
-                OCR2B = value; // Set duty cycle
-            } 
-            else if (pin == D11) {
-                TCCR2A |= (1 << COM2A1) | (1 << WGM20) | (1 << WGM21); // Fast PWM, clear on compare match
-                TCCR2B |= (1 << CS21); // Prescaler 8
-                OCR2A = value; // Set duty cycle
-            }
-        } 
-        else if (pin == D5 || pin == D6) {
-            if (pin == D5) {
-                TCCR0A |= (1 << COM0B1) | (1 << WGM00) | (1 << WGM01); // Fast PWM, clear on compare match
-                TCCR0B |= (1 << CS01); // Prescaler 8
-                OCR0B = value; // Set duty cycle
-            } 
-            else if (pin == D6) {
-                TCCR0A |= (1 << COM0A1) | (1 << WGM00) | (1 << WGM01); // Fast PWM, clear on compare match
-                TCCR0B |= (1 << CS01); // Prescaler 8
-                OCR0A = value; // Set duty cycle
-            }
-        }
-        else if (pin == D9 || pin == D10) {
-            if (pin == D9) {
-                TCCR1A |= (1 << COM1A1) | (1 << WGM10); // Fast PWM, clear on compare match
-                TCCR1B |= (1 << WGM12) | (1 << CS11); // Prescaler 8
-                OCR1A = value; // Set duty cycle
-            } 
-            else if (pin == D10) {
-                TCCR1A |= (1 << COM1B1) | (1 << WGM10); // Fast PWM, clear on compare match
-                TCCR1B |= (1 << WGM12) | (1 << CS11); // Prescaler 8
-                OCR1B = value; // Set duty cycle
-            }
-        }
-    }
-}
-
 // Control GPIO states
 int GPIOControl(uint8_t pin, uint8_t mode, uint8_t value) {
     if (mode == OUTPUT || mode == INPUT)
-        GPIOInit(pin, mode);
-    if (mode == HIGH || mode == LOW || mode == ANALOGWRITE)
-        GPIOWrite(pin, mode, value);
+        return GPIOInit(pin, mode);
     if (mode == DIGITALREAD || mode == ANALOGREAD)
         return GPIORead(pin, mode);
+    if (mode == HIGH || mode == LOW || mode == ANALOGWRITE)
+        return GPIOWrite(pin, mode, value);
 }
 
 // Initialize Serial communication

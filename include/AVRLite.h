@@ -17,9 +17,9 @@
 #define OUTPUT       0x3
 
 // Definitions for GPIO state
-#define ANALOGREAD   0x5
-#define ANALOGWRITE  0x6
-#define DIGITALREAD  0x7
+#define ANALOGREAD   0xA0
+#define ANALOGWRITE  0xA1
+#define DIGITALREAD  0xD
 
 // Definitions for analog pins A0 to A5
 #define A0 0xE
@@ -67,12 +67,12 @@ void sleep(unsigned long ms);
 void sleepMicroseconds(unsigned int us);
 
 // Configure pin mode (INPUT or OUTPUT)
-void GPIOInit(uint8_t pin, uint8_t mode);
+int GPIOInit(uint8_t pin, uint8_t mode);
 
 // Overloaded versions of GPIOControl for DIGITALREAD and ANALOGREAD without mode parameter
 int GPIORead(uint8_t pin, uint8_t state);
 // Write to a digital pin
-void GPIOWrite(uint8_t pin, uint8_t mode, uint8_t value = 0);
+uint8_t GPIOWrite(uint8_t pin, uint8_t mode, uint8_t value = 0);
 // Control GPIO states
 int GPIOControl(uint8_t pin, uint8_t mode, uint8_t value = 0);
 
