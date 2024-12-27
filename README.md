@@ -157,6 +157,7 @@ The `main.cpp` file demonstrates the use of the `AVRLite.h` library. It showcase
 
 ### Code Example
 ```cpp
+
 #include "AVRLite.h"  // Include the necessary header for AVR-based microcontroller operations
 
 #define LED_1 D13  // Define LED_1 on pin D13
@@ -169,9 +170,10 @@ int brightness = 0;  // The current brightness of the LED, range from 0 to 255
 int fadeAmount = 5;  // Amount by which brightness changes per step
 
 /**
- * Function to control PWM on LED_3, simulating a fading effect.
+ * @brief Function to control PWM on LED_3, simulating a fading effect.
  * The brightness is incremented or decremented, creating a fade-in and fade-out effect.
  */
+uint8_t pwmLED;
 void pwmExample() {
     // Check if the elapsed time since the last update is greater than or equal to 30 ms
     if (uptimeMs() - previous_uptimeMs >= 30L) {
@@ -186,7 +188,7 @@ void pwmExample() {
         }
 
         // Apply the calculated brightness to LED_3 using PWM
-        GPIOWrite(LED_3, ANALOGWRITE, brightness);  // This will control the PWM for LED_3
+        pwmLED = GPIOControl(LED_3, ANALOGWRITE, brightness);  // This will control the PWM for LED_3
     }
 }
 
@@ -216,7 +218,7 @@ int main() {
             // Read the current digital states of the LEDs
             int readState1 = GPIOControl(LED_1, DIGITALREAD);  // or GPIORead(LED_1, DIGITALREAD);
             int readState2 = GPIOControl(LED_2, DIGITALREAD);  // or GPIORead(LED_2, DIGITALREAD);
-            int readState3 = GPIOControl(LED_3, DIGITALREAD);  // or GPIORead(LED_3, DIGITALREAD);
+            int readState3 = pwmLED;
 
             // Output the state of the LEDs to the serial monitor
             Serial_printf("LED 1: %d, LED 2: %d, LED 3: %d\n", readState1, readState2, readState3);
@@ -247,4 +249,5 @@ int main() {
 
     return 0;
 }
+
 ```
