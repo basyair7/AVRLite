@@ -125,42 +125,70 @@ void __GPIODigitalWrite__(uint8_t pin, uint8_t mode) {
 void __GPIOAnalogWrite__(uint8_t pin, uint8_t value) {
     if (pin == D3 || pin == D11) {
         if (pin == D3) {
-            TCCR2A |= (1 << COM2B1) | (1 << WGM20) | (1 << WGM21); // Fast PWM, clear on compare match
-            TCCR2B |= (1 << CS21); // Prescaler 8
-            OCR2B = value; // Set duty cycle
+            if (value == 0) {
+                TCCR2A &= ~(1 << COM2B1); // Non-PWM mode
+                OCR2B = 0; // Set duty cycle to 0
+            } else {
+                TCCR2A |= (1 << COM2B1) | (1 << WGM20) | (1 << WGM21); // Fast PWM, clear on compare match
+                TCCR2B |= (1 << CS21); // Prescaler 8
+                OCR2B = value; // Set duty cycle
+            }
         } 
         else if (pin == D11) {
-            TCCR2A |= (1 << COM2A1) | (1 << WGM20) | (1 << WGM21); // Fast PWM, clear on compare match
-            TCCR2B |= (1 << CS21); // Prescaler 8
-            OCR2A = value; // Set duty cycle
+            if (value == 0) {
+                TCCR2A &= ~(1 << COM2A1); // Non-PWM mode
+                OCR2A = 0; // Set duty cycle to 0
+            } else {
+                TCCR2A |= (1 << COM2A1) | (1 << WGM20) | (1 << WGM21); // Fast PWM, clear on compare match
+                TCCR2B |= (1 << CS21); // Prescaler 8
+                OCR2A = value; // Set duty cycle
+            }
         }
     } 
     else if (pin == D5 || pin == D6) {
         if (pin == D5) {
-            TCCR0A |= (1 << COM0B1) | (1 << WGM00) | (1 << WGM01); // Fast PWM, clear on compare match
-            TCCR0B |= (1 << CS01); // Prescaler 8
-            OCR0B = value; // Set duty cycle
+            if (value == 0) {
+                TCCR0A &= ~(1 << COM0B1); // Non-PWM mode
+                OCR0B = 0; // Set duty cycle to 0
+            } else {
+                TCCR0A |= (1 << COM0B1) | (1 << WGM00) | (1 << WGM01); // Fast PWM, clear on compare match
+                TCCR0B |= (1 << CS01); // Prescaler 8
+                OCR0B = value; // Set duty cycle
+            }
         } 
         else if (pin == D6) {
-            TCCR0A |= (1 << COM0A1) | (1 << WGM00) | (1 << WGM01); // Fast PWM, clear on compare match
-            TCCR0B |= (1 << CS01); // Prescaler 8
-            OCR0A = value; // Set duty cycle
+            if (value == 0) {
+                TCCR0A &= ~(1 << COM0A1); // Non-PWM mode
+                OCR0A = 0; // Set duty cycle to 0
+            } else {
+                TCCR0A |= (1 << COM0A1) | (1 << WGM00) | (1 << WGM01); // Fast PWM, clear on compare match
+                TCCR0B |= (1 << CS01); // Prescaler 8
+                OCR0A = value; // Set duty cycle
+            }
         }
     }
     else if (pin == D9 || pin == D10) {
         if (pin == D9) {
-            TCCR1A |= (1 << COM1A1) | (1 << WGM10); // Fast PWM, clear on compare match
-            TCCR1B |= (1 << WGM12) | (1 << CS11); // Prescaler 8
-            OCR1A = value; // Set duty cycle
+            if (value == 0) {
+                TCCR1A &= ~(1 << COM1A1); // Non-PWM mode
+                OCR1A = 0; // Set duty cycle to 0
+            } else {
+                TCCR1A |= (1 << COM1A1) | (1 << WGM10); // Fast PWM, clear on compare match
+                TCCR1B |= (1 << WGM12) | (1 << CS11); // Prescaler 8
+                OCR1A = value; // Set duty cycle
+            }
         } 
         else if (pin == D10) {
-            TCCR1A |= (1 << COM1B1) | (1 << WGM10); // Fast PWM, clear on compare match
-            TCCR1B |= (1 << WGM12) | (1 << CS11); // Prescaler 8
-            OCR1B = value; // Set duty cycle
+            if (value == 0) {
+                TCCR1A &= ~(1 << COM1B1); // Non-PWM mode
+                OCR1B = 0; // Set duty cycle to 0
+            } else {
+                TCCR1A |= (1 << COM1B1) | (1 << WGM10); // Fast PWM, clear on compare match
+                TCCR1B |= (1 << WGM12) | (1 << CS11); // Prescaler 8
+                OCR1B = value; // Set duty cycle
+            }
         }
     }
-
-    if (value <= 0) __GPIODigitalWrite__(pin, LOW);
 }
 
 uint8_t GPIOWrite(uint8_t pin, uint8_t mode, uint8_t value) {
